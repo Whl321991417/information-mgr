@@ -1,0 +1,41 @@
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    padding: 0 10px;
+    background-image: url('../../assets/Imgs/home.jpeg');
+    height: 100px;
+    width: 100%;
+
+    .img-log {
+        width: 250px;
+        height: 70px;
+    }
+
+    .top-ul {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        list-style: none;
+        flex: 1;
+
+        li {
+            cursor: pointer;
+            margin: 0 20px;
+            width: 100px;
+            height: 50px;
+            font-size: 25px;
+            color: black;
+            line-height: 50px;
+            text-align: center;
+
+        }
+
+    }
+
+  
+
+}

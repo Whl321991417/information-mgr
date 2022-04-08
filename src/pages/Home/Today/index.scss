@@ -1,0 +1,42 @@
+.today{
+    margin: 0px 100px;
+}
+
+h3{
+    text-align: center;
+    font-size: 26px;
+}
+
+.shuoming{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: darkgrey;
+    font-size: 13px;
+    
+    
+}
+.data-list{
+    display: flex;
+    margin: 50px auto;
+    width: 550px;
+    height: 160px;
+    flex-wrap: wrap;
+    align-content: space-between;
+    
+}
+.data-list div{
+    width: 130px;
+    height: 60px;
+    font-size: 18px;
+}
+
+.data-list div span{
+   margin: 0 auto; 
+    display: block;
+    width: 80px;
+    height: 25px;
+}
+.black{
+    color: #000000;
+}
