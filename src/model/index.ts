@@ -34,8 +34,7 @@ export interface livebuildingInfo {
     phone: string,
 
 }
-export interface LoginParams {
-    stunum: any;
-    uname: string;
+export interface LoginParams { 
+    username: string;
     upwd: string
 }

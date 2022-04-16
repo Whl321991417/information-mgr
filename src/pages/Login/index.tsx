@@ -11,8 +11,8 @@ import imgLogin from '../../assets/Imgs/login.jpeg'
 export default function Login() {
     let navigate = useNavigate();
     const onlogin = async (value: LoginParams) => {
-        const token = await login('http://localhost:8000/login', {
-            stunum: value.stunum,
+        const token = await login('http://localhost:8000/api/login', {
+            username: value.username,
             upwd: value.upwd
         })
         if (!token) {
@@ -32,7 +32,7 @@ export default function Login() {
             onFinish={onlogin}
             >
             <Form.Item
-                name="stunum"
+                name="username"
                 rules={[{ required: true, message: '请输入学号！' }]}
             >
                 <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入用户名" />

@@ -49,7 +49,7 @@ export function RoutesComponent() {
           <Route path="managestudents" caseSensitive={false} element={<Managestudents />} />
         </Route>
         <Route path="/myinf" caseSensitive={false} element={<MyInf />} >
-          <Route path="myinformation" caseSensitive={false} element={<Myinformation />} />
+          {/* <Route path="myinformation" caseSensitive={false} element={<Myinformation />} /> */}
         </Route>
 
       </Route>
