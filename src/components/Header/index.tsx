@@ -20,19 +20,19 @@ export default function Header() {
             className: 'home-page',
         },
         {
-            name: "信息查询",
-            path: '/check',
-            className: 'Check-page',
+            name: "学生信息",
+            path: '/student',
+            className: 'student-page',
         },
         {
-            name: "信息修改",
-            path: '/Manage',
-            className: 'Manage-page',
+            name: "接种信息",
+            path: '/vaccine',
+            className: 'vaccine-page',
         },
         {
-            name: "个人信息",
-            path: '/MyInf',
-            className: 'MyInf-page',
+            name: "区域管理",
+            path: '/area',
+            className: 'area-page',
         },
     ]
 
