@@ -9,7 +9,6 @@ export default function infdorm() {
   }, [])
   const getCollegeIfo = (params?: any) => {
     collegeIfo('http://localhost:8000/list', params).then(res => {
-
       setTableData(res.list)
     })
   }
