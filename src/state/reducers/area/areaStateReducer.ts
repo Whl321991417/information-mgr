@@ -1,11 +1,12 @@
-import { HIDEADDDIALOG, SHOWADDDIALOG, UPDATEMENU } from "../../actions"
+import { GETTABLELIST, HIDEADDDIALOG, SHOWADDDIALOG, UPDATEMENU } from "../../actions"
 import { ActionData } from "../../types"
 
 const initState = {
     areaList: [],
+    tableData: [],
     addDialogVisible: false
 }
-export const areaStateReducer = (state = initState, action: ActionData) => { 
+export const areaStateReducer = (state = initState, action: ActionData) => {
     switch (action.type) {
         case UPDATEMENU:
             return {
@@ -22,6 +23,12 @@ export const areaStateReducer = (state = initState, action: ActionData) => {
             return {
                 ...state,
                 addDialogVisible: false
+            }
+
+        case GETTABLELIST:
+            return {
+                ...state,
+                tableData: action.data
             }
         default:
             return state
