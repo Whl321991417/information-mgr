@@ -1,7 +1,7 @@
-import Http from 'axios'
+import Http, { AxiosError, AxiosResponse } from 'axios'
 import { message } from 'antd';
 Http.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
-
+const BaseUrl = 'https://wangzz.site'
 
 //设置axios为form-data
 // Http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -37,11 +37,11 @@ class ApiService {
    * @param params
    * @returns {Promise.<TResult>}
    */
-  get(url: string, params: any) {
+  get(url: string, params?: any) {
     if (params) {
       url += encodeParams(params)
     }
-    return Http.get(url).then(res => res.data)
+    return Http.get(BaseUrl + url).then(res => res.data)
   }
 
   /**
@@ -55,9 +55,21 @@ class ApiService {
     if (!params) {
       params = {}
     }
-    return Http.post(url, params).then(res => res.data)
+    return Http.post(BaseUrl + url, params).then(res => res.data)
   }
-
+  /**
+   * delete请求
+   * @param url       请求地址
+   * @param params    请求参数
+   * @param flag      是否需要加签名
+   * @returns {Promise.<TResult>}
+   */
+  delete(url: string, params: any) {
+    if (!params) {
+      params = {}
+    }
+    return Http.delete(BaseUrl + url, params).then(res => res.data)
+  }
   /**
    * 请求拦截器
    */
@@ -65,8 +77,8 @@ class ApiService {
     return Http.interceptors.request.use(
       config => {
         // 如果需要token验证, 头部带上token
-        
-        config.headers!.authorization ='Bearer '+ localStorage.getItem('token') || ''
+
+        config.headers!.authorization = 'Bearer ' + localStorage.getItem('token') || ''
         return config
       },
       err => {
@@ -81,17 +93,13 @@ class ApiService {
   interceptorsOfRes() {
     Http.interceptors.response.use(
       response => {
-        //          console.log('响应完整数据==', response);
-        //          console.log('响应数据==', response.data);
-
-        if (response.status === 200 && response.data.statuscode !== 0) {
+        if (response.status === 200 && response.data.code !== "0") {
           message.error(response.data.msg);
         }
-
         return response
       },
-      error => {
-        message.error(error);
+      (error: AxiosError) => {
+        message.error(error.message);
         return Promise.reject(error)
       }
     )

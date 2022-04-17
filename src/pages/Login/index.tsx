@@ -11,7 +11,7 @@ import imgLogin from '../../assets/Imgs/login.jpeg'
 export default function Login() {
     let navigate = useNavigate();
     const onlogin = async (value: LoginParams) => {
-        const token = await login('http://localhost:8000/api/login', {
+        const token = await login('/api/login', {
             username: value.username,
             upwd: value.upwd
         })
