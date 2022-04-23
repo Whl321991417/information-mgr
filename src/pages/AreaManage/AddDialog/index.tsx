@@ -3,77 +3,74 @@ import { Form, Input, Modal, Select } from 'antd';
 import { useEffect, useState } from 'react';
 import '../index.scss'
 import { connect } from 'react-redux'
-import { addMenuTree, hideAddDialog } from '../../../state/actions';
-import {  getAreaList } from '../../../service/area';
+import { addMenuTree, getTableList, hideAddDialog } from '../../../state/actions';
+import { getAreaList } from '../../../service/area';
 import { DormitoryType } from '../../../model';
+import { getAreaName } from '../../../common/utils';
 
 const { Option } = Select;
 interface ParamsModel {
-    name?: string;
+    areaName?: string;
+    apartmentName?: string;
     type?: DormitoryType;
     manager?: string;
     pid?: string;
 }
-type a = {
-    [key: string]: string
-}
-function AddDialog({ visible, dispatch }: any) {
-    const [paramsModel, setParamsModel] = useState<ParamsModel & a>({
+
+function AddDialog({ visible, addItemNode, list, dispatch }: any) {
+    const [paramsModel, setParamsModel] = useState<ParamsModel>({
         type: DormitoryType.AREA
     })
-    const [areaList, setAreaList] = useState<any[]>([])
-    const [apartmentList, setApartmentList] = useState<any[]>([])
-
-    const [pid, setPid] = useState('')
     const [form] = Form.useForm();
-    const submit = () => {
+    const submit = async () => {
         const { name, manager } = form.getFieldsValue()
         let params = {
             name,
             manager,
             type: paramsModel.type,
-            pid: pid
+            pid: paramsModel.pid
         }
-        dispatch(addMenuTree(params))
+        await dispatch(addMenuTree(params))
+        //新增宿舍
+        if (addItemNode?.type === DormitoryType.APARTMENT) {
+            dispatch(getTableList(addItemNode.id))
+        }
         close()
     }
     const close = () => {
         dispatch(hideAddDialog)
     }
-    const selectChange = (setType: string) => (value: string) => {
-        setParamsModel((state: ParamsModel) => {
-            return {
-                ...state,
-                [setType]: value
-            }
-        })
 
-        if (setType === DormitoryType.AREA) {
-            getAreaList('/api/dormitory', { pid: value }).then((res: any) => {
-                setApartmentList(res)
-            })
-            if (!paramsModel[DormitoryType.APARTMENT]) {
-                setPid(value)
-            }
-        }
-        if (setType === DormitoryType.APARTMENT) {
-            setParamsModel((state: ParamsModel) => {
-                return {
-                    ...state,
-                    [setType]: value,
-                }
-            })
-            setPid(value)
-        }
-    }
     useEffect(() => {
-        getAreaList('/api/dormitory', {
-            type: "area"
-        }).then((res: any) => {
-            setAreaList(res)
-        })
-    }, [paramsModel.type])
-
+        console.log(addItemNode);
+        if (!addItemNode) {
+            setParamsModel({
+                type: DormitoryType.AREA,
+                pid: ''
+            })
+            return
+        }
+        //新增公寓
+        if (addItemNode.type === DormitoryType.AREA) {
+            setParamsModel({
+                type: DormitoryType.APARTMENT,
+                areaName: addItemNode.name,
+                pid: addItemNode.id
+            })
+            return
+        }
+        //新增宿舍
+        if (addItemNode.type === DormitoryType.APARTMENT) {
+            const name = getAreaName(addItemNode, list)
+            setParamsModel({
+                type: DormitoryType.ROOM,
+                areaName: name,
+                apartmentName: addItemNode.name,
+                pid: addItemNode.id
+            })
+            return
+        }
+    }, [addItemNode])
     return (
         <Modal
             title="新建"
@@ -86,46 +83,11 @@ function AddDialog({ visible, dispatch }: any) {
             destroyOnClose={true}
         >
             <Form form={form} labelAlign={'left'}  >
-                <Form.Item label="选择类型" rules={[{ required: true }]}>
-                    <Select
-                        placeholder="选择类型"
-                        onChange={selectChange('type')}
-                        allowClear
-                        value={paramsModel.type}
-                        defaultValue={DormitoryType.AREA}
-                    >
-                        <Option value={DormitoryType.AREA}>区域</Option>
-                        <Option value={DormitoryType.APARTMENT}>公寓楼</Option>
-                        <Option value={DormitoryType.ROOM}>宿舍</Option>
-                    </Select>
-                </Form.Item>
-                {paramsModel.type !== DormitoryType.AREA && <Form.Item label="选择区域">
-                    <Select
-                        placeholder="选择区域"
-                        onChange={selectChange(DormitoryType.AREA)}
-                        value={paramsModel[DormitoryType.AREA] as any}
-                    >
-                        {
-                            areaList.map((area: any) => {
-                                return <Option key={area.id} value={area.id}>{area.name}</Option>
-                            })
-                        }
-
-                    </Select>
+                {paramsModel.type !== DormitoryType.AREA && <Form.Item label="区域名称">
+                    <Input value={paramsModel.areaName} disabled />
                 </Form.Item>}
-                {paramsModel.type === DormitoryType.ROOM && <Form.Item name="gender" label="选择公寓楼">
-                    <Select
-                        placeholder="选择公寓楼"
-                        onChange={selectChange(DormitoryType.APARTMENT)}
-                        value={paramsModel[DormitoryType.APARTMENT] as any}
-                    >
-
-                        {
-                            apartmentList.map((apartment: any) => {
-                                return <Option key={apartment.id} value={apartment.id}>{apartment.name}</Option>
-                            })
-                        }
-                    </Select>
+                {paramsModel.type === DormitoryType.ROOM && <Form.Item label="公寓名称">
+                    <Input value={paramsModel.apartmentName} disabled />
                 </Form.Item>}
                 <Form.Item name="name" label="名称" rules={[{ required: true }]}>
                     <Input placeholder="请输入名称" />
@@ -142,7 +104,9 @@ function AddDialog({ visible, dispatch }: any) {
 export default connect(
     ({ areaStateReducer: state }) => {
         return {
-            visible: state.addDialogVisible
+            list: state.areaList,
+            visible: state.addDialogVisible,
+            addItemNode: state.addItemNode
         }
     }
 )(AddDialog) 

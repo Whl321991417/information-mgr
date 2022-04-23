@@ -1,12 +1,15 @@
+import { DormitoryType } from "../../../model"
 import { GETTABLELIST, HIDEADDDIALOG, SHOWADDDIALOG, UPDATEMENU } from "../../actions"
 import { ActionData } from "../../types"
 
 const initState = {
     areaList: [],
     tableData: [],
-    addDialogVisible: false
+    addDialogVisible: false,
+    addItemNode: {}
 }
 export const areaStateReducer = (state = initState, action: ActionData) => {
+
     switch (action.type) {
         case UPDATEMENU:
             return {
@@ -17,12 +20,14 @@ export const areaStateReducer = (state = initState, action: ActionData) => {
         case SHOWADDDIALOG:
             return {
                 ...state,
-                addDialogVisible: true
+                addDialogVisible: true,
+                addItemNode: action.data
             }
         case HIDEADDDIALOG:
             return {
                 ...state,
-                addDialogVisible: false
+                addDialogVisible: false,
+                addItemType: ''
             }
 
         case GETTABLELIST:

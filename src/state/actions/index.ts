@@ -1,4 +1,5 @@
-import { createArea, getAreaList } from "../../service/area";
+import { DormitoryType } from "../../model";
+import { createArea, deleteItem, getAreaList } from "../../service/area";
 
 export const UPDATEMENU = 'UPDATEMENU'; //更新左侧树
 
@@ -21,10 +22,11 @@ export const getMenuTree = () => async (dispatch: (payload: { type: string; data
     dispatch(updateTreeAction(data));
 }
 
-export const showAddDialog = {
-    type: SHOWADDDIALOG
+export const showAddDialog = (node?: any) => ({
+    type: SHOWADDDIALOG,
+    data: node
 }
-
+)
 
 export const hideAddDialog = {
     type: HIDEADDDIALOG
@@ -35,7 +37,18 @@ export const addMenuTree = (params: any) => async (dispatch: any) => {
     dispatch(getMenuTree())
 }
 
-export const getTableList = (pid: any) => async (dispatch: any) => {
-    const data = await getAreaList('/api/dormitory', { pid })
+export const getTableList = (pid: any, name?: string) => async (dispatch: any) => {
+    const params: any = { pid }
+    if (!pid) {
+        return
+    }
+    if (name) {
+        params.name = name
+    }
+    const data = await getAreaList('/api/dormitory', params)
     dispatch(updateTableData(data));
+}
+export const deleteAreaItem = (id: any) => async (dispatch: any) => {
+    const data = await deleteItem(`/api/dormitory/${id}`)
+    dispatch(getMenuTree());
 }

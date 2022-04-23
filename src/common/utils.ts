@@ -25,11 +25,21 @@ export function getTreePath(pos: string, dataList: TreeNodeItem[]) {
 
     const posArr = pos.split("-");
     const path: string[] = ['区域管理']
- 
+
     // [1,0]
     posArr.slice(1).reduce((total, currentValue) => {
         path.push(total[+currentValue].name)
         return dataList[+currentValue].children
     }, dataList)
     return path
+}
+{
+}
+export function getAreaName(node: any, dataList: TreeNodeItem[]) {
+    const pid = node.pid
+    const item = dataList.find(data => {
+        return data.id === pid
+    })!
+
+    return item.name
 }

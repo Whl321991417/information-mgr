@@ -2,42 +2,92 @@
     display: flex;
     width: 100%;
 
-    .areaTree {
-        height: calc(100vh - 70px);
-        width: 300px;
-        box-shadow: 0px 0px 8px 0px rgb(0, 0, 0, 0.1);
-        margin-right: 10px;
-        padding: 20px;
 
-        .ant-tree-treenode {
-            width: 260px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            &:hover {
+    .leftMenu {
+        position: relative;
+
+        .addArea {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .areaTree {
+            height: calc(100vh - 70px);
+            width: 300px;
+            box-shadow: 0px 0px 8px 0px rgb(0, 0, 0, 0.1);
+            margin-right: 10px;
+            padding: 20px;
+            padding-top: 50px;
+
+            .ant-tree-treenode {
+                width: 260px;
+                border-radius: 6px;
+                margin-bottom: 10px;
+
+                &:hover {
+                    background-color: #bae7ff;
+                }
+
+                .ant-tree-node-content-wrapper-normal,
+                .ant-tree-node-content-wrapper {
+                    display: flex;
+                    align-items: center;
+                    margin: 2px 0px;
+                    width: 100%;
+
+                    &:hover {
+                        background: none;
+                    }
+                }
+
+                .ant-tree-switcher {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .ant-tree-title {
+                    width: 100%;
+                    padding: 0 14px;
+
+                    .customTreeNode {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .customTreeNodeIcon {
+                            margin-right: 10px;
+                            display: none;
+                        }
+
+                        &:hover {
+                            .customTreeNodeIcon {
+                                display: block;
+                            }
+                        }
+
+                        .showIcon {
+                            margin-right: 10px;
+                            display: block;
+                        }
+                    }
+
+
+                }
+
+            }
+
+            .ant-tree-treenode-selected {
                 background-color: #bae7ff;
             }
-
-            .ant-tree-node-content-wrapper-normal,
-            .ant-tree-node-content-wrapper {
-                display: flex;
-                align-items: center;
-                margin: 2px 0px; 
-                width: 100%;
-                &:hover {
-                    background: none;
-                }
-            }
-           
-            .ant-tree-switcher{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
-        .ant-tree-treenode-selected{
-            background-color: #bae7ff;
         }
     }
+
+
 
     .areaContent {
         padding: 20px;
@@ -46,12 +96,6 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-
-        .areaHeader {
-            height: 50px;
-            display: flex;
-            align-items: center;
-        }
 
         .areaTable {
             width: 100%;
