@@ -36,8 +36,6 @@ export const addMenuTree = (params: any) => async (dispatch: any) => {
 }
 
 export const getTableList = (pid: any) => async (dispatch: any) => {
-    console.log(pid);
-    
     const data = await getAreaList('/api/dormitory', { pid })
     dispatch(updateTableData(data));
 }

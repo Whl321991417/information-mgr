@@ -34,7 +34,25 @@ export interface livebuildingInfo {
     phone: string,
 
 }
-export interface LoginParams { 
+export interface LoginParams {
     username: string;
     upwd: string
+}
+export interface TreeNode {
+    id: string;
+    type: string
+}
+export enum DormitoryType {
+    AREA = "area",//区域
+    APARTMENT = "apartment",//公寓楼
+    ROOM = "room" //宿舍
+}
+
+export interface TreeNodeItem {
+    id: string;
+    type: string;
+    manager: string;
+    name: string;
+    pid: string;
+    children: TreeNodeItem[]
 }

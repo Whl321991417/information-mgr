@@ -1,8 +1,8 @@
 import Http, { AxiosError, AxiosResponse } from 'axios'
 import { message } from 'antd';
 Http.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
-const BaseUrl = 'https://wangzz.site'
-
+// const BaseUrl = 'https://wangzz.site'
+const BaseUrl = 'http://localhost:8000'
 //设置axios为form-data
 // Http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // Http.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded';

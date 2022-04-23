@@ -4,12 +4,9 @@ import { useEffect, useState } from 'react';
 import '../index.scss'
 import { connect } from 'react-redux'
 import { addMenuTree, hideAddDialog } from '../../../state/actions';
-import { createArea, getAreaList } from '../../../service/area';
-enum DormitoryType {
-    AREA = "area",//区域
-    APARTMENT = "apartment",//公寓楼
-    ROOM = "room" //宿舍
-}
+import {  getAreaList } from '../../../service/area';
+import { DormitoryType } from '../../../model';
+
 const { Option } = Select;
 interface ParamsModel {
     name?: string;
@@ -29,7 +26,7 @@ function AddDialog({ visible, dispatch }: any) {
 
     const [pid, setPid] = useState('')
     const [form] = Form.useForm();
-    const submit = () => { 
+    const submit = () => {
         const { name, manager } = form.getFieldsValue()
         let params = {
             name,
