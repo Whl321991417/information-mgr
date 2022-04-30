@@ -3,7 +3,6 @@ import './common/index.css';
 import Layout from './components/Layout';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
-
 import Home from './pages/Home';
 import StudentInfo from './pages/StudentInfo';
 import VaccineManage from './pages/VaccineManage';

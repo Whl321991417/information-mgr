@@ -24,13 +24,13 @@ export default function Login() {
     }
 
     return (<div className='loginview'>
-        <img src={imgLogin}  />
-                <Form
+        <img src={imgLogin} />
+        <Form
             name="normal_login"
             className="login-form"
             initialValues={{ remember: true }}
             onFinish={onlogin}
-            >
+        >
             <Form.Item
                 name="username"
                 rules={[{ required: true, message: '请输入学号！' }]}
@@ -66,8 +66,8 @@ export default function Login() {
             </Form.Item>
         </Form>
 
-        </div>
-        
+    </div>
+
     );
 }
 
