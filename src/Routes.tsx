@@ -12,7 +12,7 @@ export function RoutesComponent() {
   return <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/home/" caseSensitive={false} element={<Home />} />
+        <Route path="/" caseSensitive={false} element={<Home />} />
         <Route path="/student" caseSensitive={false} element={<StudentInfo />} />
         <Route path="/vaccine" caseSensitive={false} element={<VaccineManage />} />
         <Route path="/area" caseSensitive={false} element={<AreaManage />} />

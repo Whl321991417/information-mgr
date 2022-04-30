@@ -1,8 +1,8 @@
-import Http, { AxiosError, AxiosResponse } from 'axios'
+import Http, { AxiosError, } from 'axios'
 import { message } from 'antd';
 Http.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
-const BaseUrl = 'https://wangzz.site'
-// const BaseUrl = 'http://localhost:8000'
+// const BaseUrl = 'https://wangzz.site'
+const BaseUrl = 'http://localhost:8000'
 //设置axios为form-data
 // Http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // Http.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -27,7 +27,6 @@ const encodeParams = (params: any) => {
  */
 class ApiService {
   constructor() {
-
     this.interceptorsOfReq()
     this.interceptorsOfRes()
   }
@@ -51,7 +50,7 @@ class ApiService {
    * @param flag      是否需要加签名
    * @returns {Promise.<TResult>}
    */
-  post(url: string, params: any) {
+  post(url: string, params?: any) {
     if (!params) {
       params = {}
     }

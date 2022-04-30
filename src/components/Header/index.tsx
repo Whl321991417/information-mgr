@@ -9,7 +9,7 @@ interface NavOption {
 }
 export default function Header() {
     let navigate = useNavigate();
-    
+
     const toSomePage = (path: string) => (e: any) => {
         navigate(path)
     }
@@ -36,16 +36,16 @@ export default function Header() {
         },
     ]
 
-    return  <div className="top" >
-            <img src={img} className="img-log" />
-            <ul className="top-ul">
-                {navOptions.map(option => {
-                    return <li className={option.className} onClick={toSomePage(option.path)} 
+    return <div className="top" >
+        <img src={img} className="img-log" />
+        <ul className="top-ul">
+            {navOptions.map(option => {
+                return <li className={option.className} onClick={toSomePage(option.path)}
                     key={option.path}>{option.name}</li>
-                })}
-            </ul>
-            <Button onClick={toSomePage('./login')}  className='Login'>登录</Button>
-        </div>
+            })}
+        </ul>
+        <Button onClick={toSomePage('./login')} className='Login'>登录</Button>
+    </div>
 
 }
 
