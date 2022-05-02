@@ -17,7 +17,10 @@ export default function Layout() {
   }, [pathName])
   return (
     <div className="wrapper">
-      <Header />
+      <div className="header">
+        <Header />
+      </div>
+
       <div className="content">
         <Outlet />
       </div>

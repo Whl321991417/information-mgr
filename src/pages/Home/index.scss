@@ -2,4 +2,31 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    background-color: #88a7f7;
+    .yiqingdata {
+        background-color: #fff;
+        width: 800px;
+        padding-left: 100px;
+        .updatatime {
+            line-height: 20px;
+            color: #999;
+            margin: 25px 0;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        Row {
+            margin-top: 20px;
+            col {
+                margin: 40px, 0;
+                width: 200px;
+                height: 45px;
+                align-content: center;
+                line-height: 45px;
+                title {
+                    color: #333;
+                }
+            }
+        }
+    }
 }
