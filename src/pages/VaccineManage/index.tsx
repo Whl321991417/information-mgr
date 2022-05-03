@@ -1,40 +1,31 @@
 
-import { Table } from 'antd';
+import { Input, message, Popconfirm, Space, Table } from 'antd';
 import './index.scss'
 import { vaccine } from '../../service/Vaccine';
 import { useEffect, useState } from 'react';
 export default function VaccineManage() {
-    useEffect(() => {
-        vaccineinf()
-    }, [])
-    interface vaccine {
-        list: [{
-            stunum: string,
-            name: string,
-            room: string,
-            college: string,
-            classroom: string,
-            type: string,
-            date: string,
-            heal: string,
-        }]
-
+    try {
+        useEffect(() => {
+            vaccineinf()
+        }, [])
+    } catch (error) {
+        message.error('请先登录~');
     }
-    const [vaccineData, setvaccineData] = useState<vaccine>(
-        {
-            list: [{
-                stunum: '',
-                name: '',
-                room: '',
-                college: '',
-                classroom: '',
-                type: '',
-                date: '',
-                heal: '',
-            }]
-        }
+
+
+    const [vaccineData, setvaccineData] = useState(
+        // [{
+        //     stunum: '',
+        //     name: '',
+        //     room: '',
+        //     college: '',
+        //     classroom: '',
+        //     type: '',
+        //     date: '',
+        //     heal: '',
+        // }]
+
     )
-    const dataSource: any = vaccineData.list
     const vaccineinf = async () => {
         const data1 = await vaccine('/api/vaccine')
         setvaccineData(data1)
@@ -75,8 +66,33 @@ export default function VaccineManage() {
             dataIndex: 'heal',
             key: 'heal',
         },
+        {
+            title: '操作',
+            key: 'action',
+            render: (text: any, record: any) => (
+                // <Popconfirm
+                //     title="是否确实删除？"
+                //     okText='确认'
+                //     cancelText='取消'
+                // >
+                <Space size="middle">
+                    <a>修改</a>
+                </Space>
+                // </Popconfirm>
+
+            )
+        }
     ];
+    const dataSource: any = vaccineData;
     return <div className='vaccin'>
-        <Table dataSource={dataSource} columns={columns} rowKey={record => record.stunum} />
+        <div className='vaccin_main'>
+            <h2>学生疫苗管理</h2>
+            <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                <Input.Search placeholder='请输入学号' style={{ width: 200 }} ></Input.Search>
+            </div>
+            <div>
+                <Table dataSource={dataSource} columns={columns} rowKey={record => record.stunum} />
+            </div>
+        </div>
     </div>
 }

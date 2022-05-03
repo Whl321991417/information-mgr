@@ -1,11 +1,23 @@
-import { Input, Popconfirm, Space, Table } from 'antd';
+import { Input, message, Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
+import { Value } from 'sass';
 import { studentIfo } from '../../service/studentIfo';
 import './index.scss'
+
+
+
 export default function StudentInfo() {
-    useEffect(() => {
-        stuinf()
-    }, [])
+    try {
+        useEffect(() => {
+            stuinf()
+        }, [])
+    } catch (error) {
+        message.error('请先登录~');
+    }
+    const onSearch = async (value: string) => {
+        const data1 = await studentIfo('/api/stulist', value)
+        setStuData(data1)
+    }
     interface studataList {
         list: [{
             stunum: string,
@@ -37,7 +49,6 @@ export default function StudentInfo() {
         const data1 = await studentIfo('/api/stulist')
         setStuData(data1)
     }
-    console.log(stuData);
 
     const dataSource: any = stuData.list
     const columns = [
@@ -101,12 +112,14 @@ export default function StudentInfo() {
         }
     ];
     return <div className='studentinfo'>
-        <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-            <Input.Search placeholder='请输入名称' style={{ width: 200 }} ></Input.Search>
+        <div className='studentinfo-main'>
+            <h2>学生基本信息管理</h2>
+            <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                <Input.Search placeholder='请输入学号查询~' style={{ width: 200 }} onSearch={onSearch} ></Input.Search>
+            </div>
+            <div>
+                <Table dataSource={dataSource} columns={columns} rowKey={record => record.stunum} />
+            </div>
         </div>
-        <div>
-            <Table dataSource={dataSource} columns={columns} rowKey={record => record.stunum} />
-        </div>
-
     </div>
 }

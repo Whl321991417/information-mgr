@@ -156,7 +156,7 @@ function AreaManage({ list, tableData, dispatch }: any) {
     }
 
     const onSearch = (value: string) => {
-        dispatch(getTableList(selectedKeys[0], value)) 
+        dispatch(getTableList(selectedKeys[0], value))
     }
     if (list.length === 0) {
         return null

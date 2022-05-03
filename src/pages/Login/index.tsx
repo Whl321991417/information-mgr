@@ -5,15 +5,23 @@ import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { LoginParams } from '../../model';
 import { useNavigate } from 'react-router';
-import imgLogin from '../../assets/Imgs/login.jpeg'
-
+import imgLogin from '../../assets/Imgs/login.jpeg';
+import md5 from 'md5';
+//正则表达式验证手机号
+// let myreg=/^[1][3,4,5,7,8,9][0-9]{9}$/; // 正则
+// let phone = 13581542451
+// if(!myreg.test(phone)){ // 号码格式不正确
+//   return console.log('请填写正确手机号码!')
+// }
 
 export default function Login() {
+    console.log(md5('123456'));
+
     let navigate = useNavigate();
     const onlogin = async (value: LoginParams) => {
         const token = await login('/api/login', {
             username: value.username,
-            upwd: value.upwd
+            upwd: md5(value.upwd)
         })
         if (!token) {
             return

@@ -1,7 +1,8 @@
 import './index.scss'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../assets/Imgs/tianshuilog.png'
 import { Button } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 interface NavOption {
     name: string;
     path: string;
@@ -35,7 +36,27 @@ export default function Header() {
             className: 'area-page',
         },
     ]
+    //个人信息
+    function userInf() {
+        return <div>
 
+        </div>
+    }
+    function outlogin() {
+        localStorage.removeItem('token')
+    }
+    function loginico() {
+        if (localStorage.getItem('token')) {
+            return <div className='userInf' onClick={outlogin} >
+                <UserOutlined
+                    style={{ fontSize: '30px', color: '#0049ff' }}
+                /><br></br>
+                <span>已登录</span>
+            </div>
+        } else {
+            return <Button onClick={toSomePage('./login')} className='Login'>登录</Button>
+        }
+    }
     return <div className="top" >
         <img src={img} className="img-log" />
         <ul className="top-ul">
@@ -44,7 +65,8 @@ export default function Header() {
                     key={option.path}>{option.name}</li>
             })}
         </ul>
-        <Button onClick={toSomePage('./login')} className='Login'>登录</Button>
+        {loginico()}
+
     </div>
 
 }

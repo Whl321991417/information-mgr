@@ -8,7 +8,6 @@ import StudentInfo from './pages/StudentInfo';
 import VaccineManage from './pages/VaccineManage';
 import AreaManage from './pages/AreaManage';
 export function RoutesComponent() {
-
   return <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout />}>

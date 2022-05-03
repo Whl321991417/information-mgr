@@ -95,10 +95,14 @@ class ApiService {
         if (response.status === 200 && response.data.code !== "0") {
           message.error(response.data.msg);
         }
+
         return response
       },
       (error: AxiosError) => {
-        message.error(error.message);
+        if (error.message) {
+          message.error('请先登录~');
+        }
+        //message.error(error.message);
         return Promise.reject(error)
       }
     )
