@@ -70,15 +70,21 @@ export default function VaccineManage() {
             title: '操作',
             key: 'action',
             render: (text: any, record: any) => (
-                // <Popconfirm
-                //     title="是否确实删除？"
-                //     okText='确认'
-                //     cancelText='取消'
-                // >
-                <Space size="middle">
-                    <a>修改</a>
-                </Space>
-                // </Popconfirm>
+                <div>
+                    <Popconfirm
+                        title="是否确实删除？"
+                        okText='确认'
+                        cancelText='取消'
+                    >
+                        <Space size="middle">
+                            <a>删除</a>
+                        </Space>
+                    </Popconfirm>
+
+                    <Space size="middle" className='xiugai'>
+                        <a>修改</a>
+                    </Space>
+                </div>
 
             )
         }

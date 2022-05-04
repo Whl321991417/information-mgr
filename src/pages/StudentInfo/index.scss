@@ -3,9 +3,13 @@
     display: flex;
     justify-content: center;
     .studentinfo-main {
-        width: 95%;
+        width: 85%;
         display: flex;
         justify-content: center;
         flex-direction: column;
     }
+}
+
+.xiugai {
+    margin-left: 10px;
 }

@@ -42,6 +42,10 @@ export interface TreeNode {
     id: string;
     type: string
 }
+export interface userShowModal {
+    type: string,
+    data?: string
+}
 export enum DormitoryType {
     AREA = "area",//区域
     APARTMENT = "apartment",//公寓楼

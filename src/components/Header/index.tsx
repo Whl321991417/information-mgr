@@ -143,11 +143,10 @@ function Header({ isLogin, dispatch }: any) {
             ]}
         />
     );
-    function loginMenu() {
 
+    function loginMenu() {
         return <Dropdown overlay={menu}>
             <div>
-
                 <UserOutlined
                     style={{ fontSize: '30px', color: '#fff' }}
                 />
@@ -187,7 +186,8 @@ function Header({ isLogin, dispatch }: any) {
 export default connect(
     ({ loginStateReducer: state }) => {
         return {
-            isLogin: state.isLogin
+            isLogin: state.isLogin,
+            userShowModal: state.userShowModal
         }
     }
 )(Header)

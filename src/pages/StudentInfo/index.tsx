@@ -47,6 +47,8 @@ export default function StudentInfo() {
     )
     const stuinf = async () => {
         const data1 = await studentIfo('/api/stulist')
+        console.log(1111, data1);
+
         setStuData(data1)
     }
 
@@ -94,22 +96,31 @@ export default function StudentInfo() {
             title: '班级',
             dataIndex: 'classroom',
             key: 'classroom',
-        }, {
+        },
+        {
             title: '操作',
             key: 'action',
             render: (text: any, record: any) => (
-                <Popconfirm
-                    title="是否确实删除？"
-                    okText='确认'
-                    cancelText='取消'
-                >
-                    <Space size="middle">
-                        <a>删除</a>
+                <div className='stu_delect'>
+                    <Popconfirm
+                        title="是否确实删除？"
+                        okText='确认'
+                        cancelText='取消'
+                    >
+                        <Space size="middle">
+                            <a>删除</a>
+                        </Space>
+                    </Popconfirm>
+                    <Space size="middle" className='xiugai'>
+                        <a>修改</a>
                     </Space>
-                </Popconfirm>
+                </div>
+
 
             )
         }
+
+
     ];
     return <div className='studentinfo'>
         <div className='studentinfo-main'>
