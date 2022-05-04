@@ -6,7 +6,7 @@ export const UPDATEMENU = 'UPDATEMENU'; //更新左侧树
 export const SHOWADDDIALOG = 'SHOWADDDIALOG'; //展示新建弹窗
 export const HIDEADDDIALOG = 'HIDEADDDIALOG'; //隐藏新建弹窗
 export const GETTABLELIST = 'GETTABLELIST'; //隐藏新建弹窗
-
+export const SETISLOGIN = 'SETISLOGIN'; //隐藏新建弹窗
 // 获取区域列表
 const updateTreeAction = (data: any) => ({
     type: UPDATEMENU,
@@ -52,3 +52,7 @@ export const deleteAreaItem = (id: any) => async (dispatch: any) => {
     const data = await deleteItem(`/api/dormitory/${id}`)
     dispatch(getMenuTree());
 }
+export const setIsLogin = (isLogin: boolean) => ({
+    type: SETISLOGIN,
+    data: isLogin
+})

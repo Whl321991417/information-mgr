@@ -10,7 +10,7 @@ export default function Layout() {
 
   // useState()
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLogin && pathName !== '') {
       navigate('/login')
       return
     }

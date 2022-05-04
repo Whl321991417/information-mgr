@@ -56,6 +56,7 @@ function AreaManage({ list, tableData, dispatch }: any) {
             ),
         },
     ];
+
     useEffect(() => {
         const path = getTreePath('', list)
         setPath(path)

@@ -9,7 +9,6 @@ const initState = {
     addItemNode: {}
 }
 export const areaStateReducer = (state = initState, action: ActionData) => {
-
     switch (action.type) {
         case UPDATEMENU:
             return {
@@ -29,7 +28,6 @@ export const areaStateReducer = (state = initState, action: ActionData) => {
                 addDialogVisible: false,
                 addItemType: ''
             }
-
         case GETTABLELIST:
             return {
                 ...state,
