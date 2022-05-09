@@ -7,7 +7,6 @@ export const SHOWADDDIALOG = 'SHOWADDDIALOG'; //展示新建弹窗
 export const HIDEADDDIALOG = 'HIDEADDDIALOG'; //隐藏新建弹窗
 export const GETTABLELIST = 'GETTABLELIST'; //隐藏新建弹窗
 export const SETISLOGIN = 'SETISLOGIN'; //隐藏新建弹窗
-export const SETUSERSHOWMODAL = 'SETUSERSHOWMODAL';
 
 // 获取区域列表
 const updateTreeAction = (data: any) => ({
@@ -57,9 +56,4 @@ export const deleteAreaItem = (id: any) => async (dispatch: any) => {
 export const setIsLogin = (isLogin: boolean) => ({
     type: SETISLOGIN,
     data: isLogin
-})
-//action向state传递数据
-export const setUserShowModal = (userShowModal: boolean) => ({
-    type: SETUSERSHOWMODAL,
-    data: userShowModal
 })

@@ -7,13 +7,10 @@ import './index.scss'
 
 
 export default function StudentInfo() {
-    try {
-        useEffect(() => {
-            stuinf()
-        }, [])
-    } catch (error) {
-        message.error('请先登录~');
-    }
+    useEffect(() => {
+        stuinf()
+    }, [])
+
     const onSearch = async (value: string) => {
         const data1 = await studentIfo('/api/stulist', value)
         setStuData(data1)

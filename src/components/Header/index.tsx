@@ -12,8 +12,69 @@ interface NavOption {
     path: string;
     className?: string;
 }
+interface Poops {
+    isModalVisible: boolean;
+    onclose: () => void
+}
+//重置密码
+function Repwd({ isModalVisible, onclose }: Poops) {
+    const handleOk = () => {
+
+        onclose();
+    };
+
+    const handleCancel = () => {
+        onclose();
+    };
+    return <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText='确认重置'
+        cancelText='取消'>
+        <Form.Item name="pwd" label="密码" rules={[{ required: true }]}>
+            <Input />
+        </Form.Item>
+        <Form.Item name="manager" label="手机号码" >
+            <Input />
+        </Form.Item>
+        <Form.Item name="manager" label="验证码" >
+            <Input />
+        </Form.Item>
+    </Modal>
+}
+//个人信息页面
+function UserInf({ isModalVisible, onclose }: Poops) {
+    const handleOk = () => {
+
+        onclose();
+    };
+
+    const handleCancel = () => {
+        onclose();
+    };
+    return <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText='修改'
+        cancelText='取消'>
+        <Form.Item name="pwd" label="账号：" rules={[{ required: true }]}>
+            <Input />
+        </Form.Item>
+        <Form.Item name="manager" label="姓名：" >
+            <Input />
+        </Form.Item>
+        <Form.Item name="manager" label="手机号：" >
+            <Input />
+        </Form.Item>
+    </Modal>
+}
 function Header({ isLogin, dispatch }: any) {
     let navigate = useNavigate();
+    const [useInfoVisible, setUseInfoVisible] = useState<boolean>(false)
     useEffect(() => {
         if (localStorage.getItem('token')) {
             dispatch(setIsLogin(true))
@@ -46,76 +107,17 @@ function Header({ isLogin, dispatch }: any) {
             className: 'area-page',
         },
     ]
-    //个人信息页面
-    function UserInf() {
-        const [isModalVisible, setIsModalVisible] = useState(false);
 
-        const showModal = () => {
-            setIsModalVisible(true);
-        };
 
-        const handleOk = () => {
-            setIsModalVisible(false);
-        };
-
-        const handleCancel = () => {
-            setIsModalVisible(false);
-        };
-        return <Modal
-            title="Basic Modal"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText='修改'>
-            <Form.Item name="pwd" label="账号：" rules={[{ required: true }]}>
-                <Input value={123} />
-            </Form.Item>
-            <Form.Item name="manager" label="姓名：" >
-                <Input value={'李四'} />
-            </Form.Item>
-            <Form.Item name="manager" label="手机号：" >
-                <Input value={'17353532648'} />
-            </Form.Item>
-        </Modal>
-    }
-    //重置密码
-    function Repwd() {
-        const [isModalVisible, setIsModalVisible] = useState(false);
-
-        const showModal = () => {
-            setIsModalVisible(true);
-        };
-
-        const handleOk = () => {
-            setIsModalVisible(false);
-        };
-
-        const handleCancel = () => {
-            setIsModalVisible(false);
-        };
-        return <Modal
-            title="Basic Modal"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText='确认重置'>
-            <Form.Item name="pwd" label="密码" rules={[{ required: true }]}>
-                <Input placeholder="请输入新密码~" />
-            </Form.Item>
-            <Form.Item name="manager" label="手机号码" >
-                <Input placeholder="请输入与本账户绑定的手机号" />
-            </Form.Item>
-            <Form.Item name="manager" label="验证码" >
-                <Input placeholder="请输入验证码~" />
-            </Form.Item>
-        </Modal>
-    }
     //登录菜单
     function handleMenuClick(e: any) {
         switch (e.key) {
-            case '1': console.log('个人信息');
+            case '1':
+                console.log('个人信息');
+                setUseInfoVisible(true)
                 break;
             case '2': console.log('重置密码');
+                setUseInfoVisible(true)
                 break;
             case '3': console.log('退出登录');
                 outlogin();
@@ -161,7 +163,9 @@ function Header({ isLogin, dispatch }: any) {
         localStorage.removeItem('token')
         dispatch(setIsLogin(false))
     }
-
+    const onclose = () => {
+        setUseInfoVisible(false)
+    }
     //登录区域
     function loginico() {
         if (isLogin) {
@@ -179,6 +183,9 @@ function Header({ isLogin, dispatch }: any) {
             })}
         </ul>
         {loginico()}
+        <UserInf isModalVisible={useInfoVisible} onclose={onclose} />
+
+        <Repwd isModalVisible={useInfoVisible} onclose={onclose} />
 
     </div>
 
@@ -186,8 +193,8 @@ function Header({ isLogin, dispatch }: any) {
 export default connect(
     ({ loginStateReducer: state }) => {
         return {
-            isLogin: state.isLogin,
-            userShowModal: state.userShowModal
+
+            isLogin: state.isLogin
         }
     }
 )(Header)

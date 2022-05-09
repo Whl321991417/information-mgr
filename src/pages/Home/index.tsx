@@ -125,7 +125,6 @@ export default function Home() {
     console.log(chinaAdd, chinaTotal);
 
     return <div className="home">
-
         <div className='yiqingdata'>
             <h2>国内疫情</h2>
             <span className='updatatime'>数据更新于：{lastUpdateTime}</span>
@@ -176,7 +175,6 @@ export default function Home() {
             <span className='updatatime'> 该数据为31省(自治区、直辖市)本土新增，及港澳台新增确诊数据</span>
             <Table dataSource={dataSource} columns={columns} />;
         </div>
-
     </div>
 
 }

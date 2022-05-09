@@ -16,10 +16,71 @@ import { useState } from 'react';
 // if(!myreg.test(phone)){ // 号码格式不正确
 //   return console.log('请填写正确手机号码!')
 // }
+interface Poops {
+    isModalVisible: boolean;
+    onclose: () => void
+}
+//注册用户界面
+function Newuser({ isModalVisible, onclose }: Poops) {
+    const handleOk = () => {
+        onclose()
+    };
+
+    const handleCancel = () => {
+        onclose()
+    };
+    return <Modal
+        title="欢迎注册新账号~"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText='确认注册'
+        cancelText='取消'>
+        <Form.Item name="name" label="账号：" rules={[{ required: true }]}>
+            <Input placeholder="" />
+        </Form.Item>
+        <Form.Item name="manager" label="姓名" >
+            <Input placeholder="" />
+        </Form.Item>
+        <Form.Item name="name" label="手机号" rules={[{ required: true }]}>
+            <Input placeholder="" />
+        </Form.Item>
+
+        <Form.Item name="manager" label="密码" >
+            <Input placeholder="" />
+        </Form.Item>
+    </Modal>
+}
+function Repwd({ isModalVisible, onclose }: Poops) {
+    const handleOk = () => {
+        onclose();
+    };
+    const handleCancel = () => {
+        onclose();
+    };
+    return <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText='确认重置'
+        cancelText='取消'>
+        <Form.Item name="pwd" label="密码" rules={[{ required: true }]}>
+            <Input placeholder="请输入新密码~" />
+        </Form.Item>
+        <Form.Item name="manager" label="手机号码" >
+            <Input placeholder="请输入与本账户绑定的手机号" />
+        </Form.Item>
+        <Form.Item name="manager" label="验证码" >
+            <Input placeholder="请输入验证码~" />
+        </Form.Item>
+    </Modal>
+}
 
 function Login({ dispatch }: any) {
-    console.log(md5('123456'));
 
+    const [pwdInfoVisible, setpwdInfoVisible] = useState<boolean>(false)
+    const [userInfoVisible, setuserInfoVisible] = useState<boolean>(false)
     let navigate = useNavigate();
     const onlogin = async (value: LoginParams) => {
         const token = await login('/api/login', {
@@ -34,73 +95,15 @@ function Login({ dispatch }: any) {
         dispatch(setIsLogin(true))
         navigate('/')
     }
-    //注册用户界面
-    function Newuser() {
-        const [isModalVisible, setIsModalVisible] = useState(false);
-
-        const showModal = () => {
-            setIsModalVisible(true);
-        };
-
-        const handleOk = () => {
-            setIsModalVisible(false);
-        };
-
-        const handleCancel = () => {
-            setIsModalVisible(false);
-        };
-        return <Modal
-            title="Basic Modal"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText='确认注册'>
-            <Form.Item name="name" label="账号：" rules={[{ required: true }]}>
-                <Input placeholder="" />
-            </Form.Item>
-            <Form.Item name="manager" label="姓名" >
-                <Input placeholder="" />
-            </Form.Item>
-            <Form.Item name="name" label="手机号" rules={[{ required: true }]}>
-                <Input placeholder="" />
-            </Form.Item>
-
-            <Form.Item name="manager" label="密码" >
-                <Input placeholder="" />
-            </Form.Item>
-        </Modal>
+    const onclose = () => {
+        setpwdInfoVisible(false);
+        setuserInfoVisible(false)
+    };
+    const showPwd = () => {
+        setpwdInfoVisible(true)
     }
-    //重置密码
-    function Repwd() {
-        const [isModalVisible, setIsModalVisible] = useState(false);
-
-        const showModal = () => {
-            setIsModalVisible(true);
-        };
-
-        const handleOk = () => {
-            setIsModalVisible(false);
-        };
-
-        const handleCancel = () => {
-            setIsModalVisible(false);
-        };
-        return <Modal
-            title="Basic Modal"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText='确认重置'>
-            <Form.Item name="pwd" label="密码" rules={[{ required: true }]}>
-                <Input placeholder="请输入新密码~" />
-            </Form.Item>
-            <Form.Item name="manager" label="手机号码" >
-                <Input placeholder="请输入与本账户绑定的手机号" />
-            </Form.Item>
-            <Form.Item name="manager" label="验证码" >
-                <Input placeholder="请输入验证码~" />
-            </Form.Item>
-        </Modal>
+    const showNewUserInf = () => {
+        setuserInfoVisible(true)
     }
     return (<div className='loginview'>
         <img src={imgLogin} />
@@ -130,7 +133,7 @@ function Login({ dispatch }: any) {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                     <Checkbox>记住密码</Checkbox>
                 </Form.Item>
-                <a className="login-form-forgot" href="">
+                <a className="login-form-forgot" onClick={showPwd}>
                     忘记密码
                 </a>
             </Form.Item>
@@ -138,15 +141,21 @@ function Login({ dispatch }: any) {
                 <Button type="primary" htmlType="submit" className="login-form-button" >
                     登录
                 </Button>
-                <a className="login-form-forgot" href="">
+                <a className="login-form-forgot" onClick={showNewUserInf}>
                     注册用户
                 </a>
             </Form.Item>
         </Form>
+        <Repwd isModalVisible={pwdInfoVisible} onclose={onclose} />
+        <Newuser isModalVisible={userInfoVisible} onclose={onclose} />
     </div>
     );
 }
 
 export default connect(
-    ({ loginStateReducer: state }) => { }
+    ({ loginStateReducer: state }) => {
+        return {
+            isLogin: state.isLogin
+        }
+    }
 )(Login) 
