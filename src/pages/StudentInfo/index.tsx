@@ -1,7 +1,9 @@
-import { Input, message, Popconfirm, Space, Table } from 'antd';
+import { Button, Input, message, Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { Value } from 'sass';
 import { studentIfo } from '../../service/studentIfo';
+import { StudentInf } from './AddStudent';
+
 import './index.scss'
 
 
@@ -103,6 +105,7 @@ export default function StudentInfo() {
                         title="是否确实删除？"
                         okText='确认'
                         cancelText='取消'
+                        onConfirm={deleteDialog(node)}
                     >
                         <Space size="middle">
                             <a>删除</a>
@@ -119,15 +122,28 @@ export default function StudentInfo() {
 
 
     ];
+    const openAddStuInf = () => {
+        setStudentInfoVisible(true)
+    }
+    const [studentInfoVisible, setStudentInfoVisible] = useState<boolean>(false)
+    const onclose = () => {
+        setStudentInfoVisible(false)
+    }
     return <div className='studentinfo'>
         <div className='studentinfo-main'>
+
             <h2>学生基本信息管理</h2>
-            <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                <Input.Search placeholder='请输入学号查询~' style={{ width: 200 }} onSearch={onSearch} ></Input.Search>
+            <div className='addArea'>
+                <Button type="primary" size='middle' onClick={openAddStuInf}>添加学生信息</Button>
+
+                <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                    <Input.Search placeholder='请输入学号查询~' style={{ width: 200 }} onSearch={onSearch} ></Input.Search>
+                </div>
             </div>
             <div>
                 <Table dataSource={dataSource} columns={columns} rowKey={record => record.stunum} />
             </div>
         </div>
+        <StudentInf isModalVisible={studentInfoVisible} onclose={onclose} />
     </div>
 }

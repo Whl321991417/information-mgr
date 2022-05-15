@@ -85,7 +85,6 @@ class ApiService {
       }
     )
   }
-
   /**
    * 响应拦截器
    */
@@ -95,12 +94,11 @@ class ApiService {
         if (response.status === 200 && response.data.code !== "0") {
           message.error(response.data.msg);
         }
-
         return response
       },
       (error: AxiosError) => {
         if (error.message) {
-          message.error('请先登录~');
+          message.error('操作异常~');
         }
         //message.error(error.message);
         return Promise.reject(error)

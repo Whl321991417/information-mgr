@@ -1,8 +1,12 @@
 
-import { Input, message, Popconfirm, Space, Table } from 'antd';
+import { Button, Input, message, Popconfirm, Space, Table } from 'antd';
 import './index.scss'
 import { vaccine } from '../../service/Vaccine';
 import { useEffect, useState } from 'react';
+import { AddVaccineInf } from './AddVaccineInf';
+import './index.scss'
+
+
 export default function VaccineManage() {
     try {
         useEffect(() => {
@@ -13,19 +17,19 @@ export default function VaccineManage() {
     }
 
 
-    const [vaccineData, setvaccineData] = useState(
-        // [{
-        //     stunum: '',
-        //     name: '',
-        //     room: '',
-        //     college: '',
-        //     classroom: '',
-        //     type: '',
-        //     date: '',
-        //     heal: '',
-        // }]
+    const [vaccineData, setvaccineData] = useState()
+    // [{
+    //     stunum: '',
+    //     name: '',
+    //     room: '',
+    //     college: '',
+    //     classroom: '',
+    //     type: '',
+    //     date: '',
+    //     heal: '',
+    // }]
 
-    )
+
     const vaccineinf = async () => {
         const data1 = await vaccine('/api/vaccine')
         setvaccineData(data1)
@@ -90,15 +94,26 @@ export default function VaccineManage() {
         }
     ];
     const dataSource: any = vaccineData;
+    const openAddVacInf = () => {
+        setVaccineInfoVisible(true)
+    }
+    const [vaccineInfoVisible, setVaccineInfoVisible] = useState<boolean>(false)
+    const onclose = () => {
+        setVaccineInfoVisible(false)
+    }
     return <div className='vaccin'>
         <div className='vaccin_main'>
             <h2>学生疫苗管理</h2>
-            <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                <Input.Search placeholder='请输入学号' style={{ width: 200 }} ></Input.Search>
+            <div className='addArea'>
+                <Button type="primary" size='middle' onClick={openAddVacInf}>新增疫苗信息</Button>
+                <div className='inputid' style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                    <Input.Search placeholder='请输入学号' style={{ width: 200 }} ></Input.Search>
+                </div>
             </div>
             <div>
                 <Table dataSource={dataSource} columns={columns} rowKey={record => record.stunum} />
             </div>
         </div>
+        <AddVaccineInf isModalVisible={vaccineInfoVisible} onclose={onclose} />
     </div>
 }

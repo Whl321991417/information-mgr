@@ -1,7 +1,7 @@
 
 import { login } from '../../service/login';
 import './index.scss'
-import { Form, Input, Button, Checkbox, message, Modal } from 'antd';
+import { Form, Input, Button, Checkbox, message, Modal, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { LoginParams } from '../../model';
 import { useNavigate } from 'react-router';
@@ -36,19 +36,30 @@ function Newuser({ isModalVisible, onclose }: Poops) {
         onCancel={handleCancel}
         okText='确认注册'
         cancelText='取消'>
-        <Form.Item name="name" label="账号：" rules={[{ required: true }]}>
-            <Input placeholder="" />
-        </Form.Item>
-        <Form.Item name="manager" label="姓名" >
-            <Input placeholder="" />
-        </Form.Item>
-        <Form.Item name="name" label="手机号" rules={[{ required: true }]}>
-            <Input placeholder="" />
-        </Form.Item>
+        <div className='center'>
+            <Form.Item name="name" label="账号：" rules={[{ required: true }]}>
+                <Space direction="vertical">
+                    <Input />
+                </Space>
+            </Form.Item>
+            <Form.Item name="manager" label="密码" >
+                <Space direction="vertical">
+                    <Input.Password placeholder="input password" />
+                </Space>
+            </Form.Item>
+            <Form.Item name="manager" label="姓名" >
+                <Space direction="vertical">
+                    <Input />
+                </Space>
+            </Form.Item>
+            <Form.Item name="name" label="手机号" rules={[{ required: true }]}>
+                <Space direction="vertical">
+                    <Input />
+                </Space>
+            </Form.Item>
 
-        <Form.Item name="manager" label="密码" >
-            <Input placeholder="" />
-        </Form.Item>
+        </div>
+
     </Modal>
 }
 function Repwd({ isModalVisible, onclose }: Poops) {
@@ -65,15 +76,29 @@ function Repwd({ isModalVisible, onclose }: Poops) {
         onCancel={handleCancel}
         okText='确认重置'
         cancelText='取消'>
-        <Form.Item name="pwd" label="密码" rules={[{ required: true }]}>
-            <Input placeholder="请输入新密码~" />
-        </Form.Item>
-        <Form.Item name="manager" label="手机号码" >
-            <Input placeholder="请输入与本账户绑定的手机号" />
-        </Form.Item>
-        <Form.Item name="manager" label="验证码" >
-            <Input placeholder="请输入验证码~" />
-        </Form.Item>
+        <div className='center'>
+            <Form.Item name="pwd" label="账号" rules={[{ required: true }]}>
+                <Space direction="vertical">
+                    <Input />
+                </Space>
+            </Form.Item>
+            <Form.Item name="pwd" label="密码" rules={[{ required: true }]}>
+                <Space direction="vertical">
+                    <Input.Password placeholder="input password" />
+                </Space>
+            </Form.Item>
+            <Form.Item name="manager" label="手机号码" >
+                <Space direction="vertical">
+                    <Input />
+                </Space>
+            </Form.Item>
+            <Form.Item name="manager" label="验证码" >
+                <Space direction="vertical">
+                    <Input />
+                </Space>
+            </Form.Item>
+        </div>
+
     </Modal>
 }
 

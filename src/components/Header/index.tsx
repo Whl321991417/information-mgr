@@ -27,7 +27,7 @@ function Repwd({ isModalVisible, onclose }: Poops) {
         onclose();
     };
     return <Modal
-        title="Basic Modal"
+        title="重置密码"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -55,7 +55,7 @@ function UserInf({ isModalVisible, onclose }: Poops) {
         onclose();
     };
     return <Modal
-        title="Basic Modal"
+        title="修改个人信息"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -75,6 +75,7 @@ function UserInf({ isModalVisible, onclose }: Poops) {
 function Header({ isLogin, dispatch }: any) {
     let navigate = useNavigate();
     const [useInfoVisible, setUseInfoVisible] = useState<boolean>(false)
+    const [useRePwdVisible, setUseRePwdVisible] = useState<boolean>(false)
     useEffect(() => {
         if (localStorage.getItem('token')) {
             dispatch(setIsLogin(true))
@@ -117,7 +118,7 @@ function Header({ isLogin, dispatch }: any) {
                 setUseInfoVisible(true)
                 break;
             case '2': console.log('重置密码');
-                setUseInfoVisible(true)
+                setUseRePwdVisible(true)
                 break;
             case '3': console.log('退出登录');
                 outlogin();
@@ -145,7 +146,7 @@ function Header({ isLogin, dispatch }: any) {
             ]}
         />
     );
-
+    //已登录状态显示界面
     function loginMenu() {
         return <Dropdown overlay={menu}>
             <div>
@@ -163,8 +164,10 @@ function Header({ isLogin, dispatch }: any) {
         localStorage.removeItem('token')
         dispatch(setIsLogin(false))
     }
+    //修改对话框显示状态
     const onclose = () => {
         setUseInfoVisible(false)
+        setUseRePwdVisible(false)
     }
     //登录区域
     function loginico() {
@@ -174,6 +177,7 @@ function Header({ isLogin, dispatch }: any) {
             return <Button onClick={toSomePage('./login')} className='Login'>登录</Button>
         }
     }
+
     return <div className="top" >
         <img src={img} className="img-log" />
         <ul className="top-ul">
@@ -185,7 +189,7 @@ function Header({ isLogin, dispatch }: any) {
         {loginico()}
         <UserInf isModalVisible={useInfoVisible} onclose={onclose} />
 
-        <Repwd isModalVisible={useInfoVisible} onclose={onclose} />
+        <Repwd isModalVisible={useRePwdVisible} onclose={onclose} />
 
     </div>
 
