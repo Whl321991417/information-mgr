@@ -1,9 +1,12 @@
-import { Col, DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Space } from "antd";
+import { Col, DatePicker, Form, Input, InputNumber, Modal, Radio, RadioChangeEvent, Row, Space } from "antd";
 import form from "antd/lib/form";
 
 import { addStudentIfo } from "../../../service/studentIfo";
 import "./index.scss"
-
+enum SexValue {
+    MAN = "男",
+    WOMAN = "女"
+}
 interface Poops {
     isModalVisible: boolean;
     onclose: () => void
@@ -11,8 +14,9 @@ interface Poops {
 export function StudentInf({ isModalVisible, onclose }: Poops) {
     const [form] = Form.useForm();
     const handleOk = () => {
-        addStudentIfo('/api/stulist', form.getFieldsValue())
-        console.log(form.getFieldsValue());
+        const sex = form.getFieldValue('sex') || SexValue.MAN
+        addStudentIfo('/api/stulist', { ...form.getFieldsValue(), sex })
+
         onclose();
     };
     const handleCancel = () => {
@@ -22,11 +26,15 @@ export function StudentInf({ isModalVisible, onclose }: Poops) {
         labelCol: { span: 8 },
         wrapperCol: { span: 16 },
     };
-    const ondateChange = (date: any, dateString: any) => {
-        console.log(date, dateString);
+    const dateChange = (dateString: any) => {
+        form.setFieldsValue({ birthday: dateString })
+        console.log(dateString);
     }
+    const sexChange = (e: RadioChangeEvent) => {
+        form.setFieldsValue({ sex: e.target.value })
 
-
+    }
+    const dateFormat = 'YYYY/MM/DD';
 
     return (
         <Modal
@@ -44,37 +52,37 @@ export function StudentInf({ isModalVisible, onclose }: Poops) {
                 }>
                     <Row>
                         <Col span={12}>
-                            <Form.Item name={['name']} label="姓名" rules={[{ required: true }]}>
+                            <Form.Item name={'name'} label="姓名" rules={[{ required: true }]}>
                                 <Input />
                             </Form.Item>
-                            <Form.Item name={['sex']} label="性别" rules={[{ required: true }]}>
-                                <Radio.Group name={"sex"} defaultValue={1} >
-                                    <Radio value={1}>男</Radio>
-                                    <Radio value={2}>女</Radio>
+                            <Form.Item name='sex' label="性别" rules={[{ required: true }]}>
+                                <Radio.Group defaultValue={SexValue.MAN} onChange={sexChange} >
+                                    <Radio value={SexValue.MAN}>男</Radio>
+                                    <Radio value={SexValue.WOMAN}>女</Radio>
                                 </Radio.Group>
                             </Form.Item>
-                            <Form.Item name={['phone']} label="电话">
+                            <Form.Item name={'phone'} label="电话">
                                 <Input />
                             </Form.Item>
-                            <Form.Item name={['classroom']} label="班级">
+                            <Form.Item name={'classroom'} label="班级">
                                 <Input />
                             </Form.Item>
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item name={['stunum']} label="学号" rules={[{ required: true }]}>
+                            <Form.Item name={'stunum'} label="学号" rules={[{ required: true }]}>
                                 <Input />
                             </Form.Item>
-                            <Form.Item name={['room']} label="宿舍">
+                            <Form.Item name={'room'} label="宿舍">
                                 <Input />
                             </Form.Item>
-                            <Form.Item name={['birthday']} label="出生日期">
+                            <Form.Item name={'birthday'} label="出生日期">
                                 <Space direction="vertical">
-                                    <DatePicker onChange={ondateChange} />
+                                    <DatePicker onChange={dateChange} format={dateFormat} />
                                 </Space>
                             </Form.Item>
-                            <Form.Item name={['college']} label="学院">
+                            <Form.Item name={'college'} label="学院">
                                 <Input />
                             </Form.Item>
                         </Col>

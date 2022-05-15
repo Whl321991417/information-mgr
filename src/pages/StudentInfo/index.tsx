@@ -105,7 +105,7 @@ export default function StudentInfo() {
                         title="是否确实删除？"
                         okText='确认'
                         cancelText='取消'
-                        onConfirm={deleteDialog(node)}
+                    // onConfirm={deleteDialog(node)}
                     >
                         <Space size="middle">
                             <a>删除</a>

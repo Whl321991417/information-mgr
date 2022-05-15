@@ -1,7 +1,7 @@
 
 import { login } from '../../service/login';
 import './index.scss'
-import { Form, Input, Button, Checkbox, message, Modal, Space } from 'antd';
+import { Form, Input, Button, Checkbox, message, Modal, Space, Tooltip } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { LoginParams } from '../../model';
 import { useNavigate } from 'react-router';
@@ -92,9 +92,10 @@ function Repwd({ isModalVisible, onclose }: Poops) {
                     <Input />
                 </Space>
             </Form.Item>
-            <Form.Item name="manager" label="验证码" >
+            <Form.Item name="manager" label="验证码" rules={[{ required: true }]}>
                 <Space direction="vertical">
                     <Input />
+
                 </Space>
             </Form.Item>
         </div>
